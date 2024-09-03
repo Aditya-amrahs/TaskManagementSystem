@@ -1,0 +1,34 @@
+﻿@model IEnumerable<TaskManagementSystem.Models.Task>
+
+<h2>Task List</h2>
+
+<table class="table">
+    <thead>
+        <tr>            
+            <th>Title</th>
+            <th>Description</th>
+            <th>Priority</th>
+            <th>Due Date</th>
+            <th>Completed</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var task in Model)
+        {
+            <tr>                
+                <td>@task.Title</td>
+                <td>@task.Description</td>
+                <td>@task.Priority</td>
+                <td>@task.DueDate.ToShortDateString()</td>
+                <td><input type="checkbox" disabled @(task.IsCompleted ? "checked" : "") /></td>
+                <td>
+                    <a asp-action="Edit" asp-route-id="@task.TaskId" class="btn btn-outline-primary">Edit</a> |
+                    <a asp-action="Delete" asp-route-id="@task.TaskId" class="btn btn-outline-primary">Delete</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<a href="@Url.Action("Create")" class="btn btn-primary">Create New Task</a>
