@@ -1,34 +1,41 @@
 ﻿@model IEnumerable<TaskManagementSystem.Models.Task>
 
-<h2>Task List</h2>
+<div class="container mb-4">
+    <div class="row align-items-center">
+        <div class="col">
+            <h2>Task List</h2>
+        </div>
+        <div class="col text-end">
+            <a href="@Url.Action("Create")" class="btn btn-primary mt-3">Create New Task</a>
+        </div>
+    </div>
 
-<table class="table">
-    <thead>
-        <tr>            
-            <th>Title</th>
-            <th>Description</th>
-            <th>Priority</th>
-            <th>Due Date</th>
-            <th>Completed</th>
-            <th>Actions</th>
-        </tr>
-    </thead>
-    <tbody>
+</div>
+
+
+<div class="container">
+    <div class="row">
         @foreach (var task in Model)
         {
-            <tr>                
-                <td>@task.Title</td>
-                <td>@task.Description</td>
-                <td>@task.Priority</td>
-                <td>@task.DueDate.ToShortDateString()</td>
-                <td><input type="checkbox" disabled @(task.IsCompleted ? "checked" : "") /></td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@task.TaskId" class="btn btn-outline-primary">Edit</a> |
-                    <a asp-action="Delete" asp-route-id="@task.TaskId" class="btn btn-outline-primary">Delete</a>
-                </td>
-            </tr>
+            <div class="col-12 mb-4">
+                <div class="card shadow-sm" style="min-height: 250px;">
+                    <div class="card-body d-flex flex-column">
+                        <h5 class="card-title">@task.Title</h5>
+                        <p class="card-text">@task.Description</p>
+                        <p class="card-text mt-auto"><small class="text-muted">Priority: @task.Priority</small></p>
+                        <p class="card-text"><small class="text-muted">Due Date: @task.DueDate.ToShortDateString()</small></p>
+                        <p class="card-text">
+                            <input type="checkbox" disabled @(task.IsCompleted ? "checked" : "") /> Completed
+                        </p>
+                        <div class="mt-auto">
+                            <a asp-action="Edit" asp-route-id="@task.TaskId" class="btn btn-outline-primary btn-sm">Edit</a>
+                            <a asp-action="Delete" asp-route-id="@task.TaskId" class="btn btn-outline-danger btn-sm">Delete</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
         }
-    </tbody>
-</table>
+    </div>
+</div>
 
-<a href="@Url.Action("Create")" class="btn btn-primary">Create New Task</a>
+

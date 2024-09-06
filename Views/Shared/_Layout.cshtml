@@ -7,6 +7,25 @@
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/TaskManagementSystem.styles.css" asp-append-version="true" />
+    <style>
+        body {
+            padding-top: 70px; /* Space for the fixed navbar */
+            padding-bottom: 70px; /* Space for the fixed footer */
+        }
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+        }
+
+        /* footer {
+            position: fixed;
+            bottom: 0;
+            width: 100%;
+            z-index: 1000;
+        } */
+    </style>
 </head>
 <body>
     <header>

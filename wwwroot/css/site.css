@@ -20,3 +20,36 @@ html {
 body {
   margin-bottom: 60px;
 }
+
+.container {
+    max-width: 1200px; /* Optional: Restrict the maximum width */
+}
+
+h2 {
+    position = fixed;
+    margin-bottom: 0;
+}
+
+.btn-primary {
+    margin-right: 0; /* Ensure the button aligns with the right edge */
+}
+
+
+.card {
+    height: 100%;
+}
+
+.card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.card-title {
+    font-size: 1.25rem;
+    font-weight: bold;
+}
+
+.card-text {
+    margin-bottom: 0.5rem;
+}
