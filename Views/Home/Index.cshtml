@@ -1,17 +1,29 @@
 ﻿@model IEnumerable<TaskManagementSystem.Models.Task>
 
+@if (TempData["SuccessMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["SuccessMessage"]
+    </div>
+}
+
+@if (TempData["DeleteMessage"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["DeleteMessage"]
+    </div>
+}
+
 <div class="container mb-4">
     <div class="row align-items-center">
         <div class="col">
             <h2>Task List</h2>
         </div>
         <div class="col text-end">
-            <a href="@Url.Action("Create")" class="btn btn-primary mt-3">Create New Task</a>
+            <a href="@Url.Action("Create")" class="btn btn-primary">Create New Task</a>
         </div>
     </div>
-
 </div>
-
 
 <div class="container">
     <div class="row">
@@ -29,7 +41,8 @@
                         </p>
                         <div class="mt-auto">
                             <a asp-action="Edit" asp-route-id="@task.TaskId" class="btn btn-outline-primary btn-sm">Edit</a>
-                            <a asp-action="Delete" asp-route-id="@task.TaskId" class="btn btn-outline-danger btn-sm">Delete</a>
+                            <a href="javascript:void(0)" class="btn btn-outline-danger btn-sm"
+                               onclick="confirmDelete('@Url.Action("Delete", new { id = task.TaskId })')">Delete</a>
                         </div>
                     </div>
                 </div>
@@ -38,4 +51,20 @@
     </div>
 </div>
 
-
+<script>
+    function confirmDelete(deleteUrl) {
+        Swal.fire({
+            title: 'Are you sure?',
+            text: "This will Permanently Delete this Task!",
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, delete it!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                window.location.href = deleteUrl;
+            }
+        });
+    }
+</script>

@@ -30,12 +30,14 @@ namespace TaskManagementSystem.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult Create(TaskManagementSystem.Models.Task task)
         {
             if (ModelState.IsValid)
             {
                 _context.Tasks.Add(task);
                 _context.SaveChanges();
+                TempData["SuccessMessage"] = $"New Task:{task.Title} is Created Successfully!";
                 return RedirectToAction(nameof(Index));
             }
             return View(task);
@@ -79,6 +81,7 @@ namespace TaskManagementSystem.Controllers
             }
             _context.Tasks.Remove(task);
             _context.SaveChanges();
+            TempData["DeleteMessage"] = $"{task.Title}: Task is Deleted!";
             return RedirectToAction(nameof(Index));
         }
 
