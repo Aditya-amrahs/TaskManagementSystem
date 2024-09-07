@@ -18,11 +18,12 @@ html {
 }
 
 body {
-  margin-bottom: 60px;
+    background: linear-gradient(-180deg, rgba(255,255,255,0.50) 0%, rgba(0,0,0,0.50) 100%);
+    margin-bottom: 60px;
 }
 
 .container {
-    max-width: 1200px; /* Optional: Restrict the maximum width */
+    max-width: 1200px;  Optional: Restrict the maximum width 
 }
 
 h2 {
@@ -31,7 +32,7 @@ h2 {
 }
 
 .btn-primary {
-    margin-right: 0; /* Ensure the button aligns with the right edge */
+    margin-right: 0;  Ensure the button aligns with the right edge 
 }
 
 

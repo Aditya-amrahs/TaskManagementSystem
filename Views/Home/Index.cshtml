@@ -2,16 +2,28 @@
 
 @if (TempData["SuccessMessage"] != null)
 {
-    <div class="alert alert-success" role="alert">
+    <div id="success-alert" class="alert alert-success" role="alert">
         @TempData["SuccessMessage"]
     </div>
+
+    <script>
+        setTimeout(function () {
+            document.getElementById('success-alert').style.display = 'none';
+        }, 15000);  @* 10sec = 10000 milliseconds *@ 
+    </script>
 }
 
 @if (TempData["DeleteMessage"] != null)
 {
-    <div class="alert alert-success" role="alert">
+    <div id="delete-alert" class="alert alert-success" role="alert">
         @TempData["DeleteMessage"]
     </div>
+
+    <script>
+        setTimeout(function () {
+            document.getElementById('delete-alert').style.display = 'none';
+        }, 15000); @* 10sec = 10000 milliseconds *@
+    </script>
 }
 
 <div class="container mb-4">
