@@ -31,7 +31,30 @@
         <div class="col">
             <h2>Task List</h2>
         </div>
+        @* <div class="col text-end">
+            <a href="@Url.Action("Create")" class="btn btn-primary">Create New Task</a>
+        </div> *@
         <div class="col text-end">
+            <a href="@Url.Action("Index", new { sortOrder = ViewBag.PrioritySort })" class="btn btn-link">
+                Priority @if (ViewBag.CurrentSort == "priority_asc")
+                {
+                    <i class="bi bi-arrow-up"></i>
+                }
+                else
+                {
+                    <i class="bi bi-arrow-down"></i>
+                }
+            </a>
+            <a href="@Url.Action("Index", new { sortOrder = ViewBag.DueDateSort })" class="btn btn-link">
+                Due Date @if (ViewBag.CurrentSort == "duedate_asc")
+                {
+                    <i class="bi bi-arrow-up"></i>
+                }
+                else
+                {
+                    <i class="bi bi-arrow-down"></i>
+                }
+            </a>
             <a href="@Url.Action("Create")" class="btn btn-primary">Create New Task</a>
         </div>
     </div>

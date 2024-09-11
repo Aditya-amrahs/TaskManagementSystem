@@ -1,0 +1,22 @@
+6-sept
+features :-
+1. task in card style(bootstrap).
+2. add task button in right corner as in same line as task list.
+3. when more task there header and footer should stick and not move around when scroll.
+also they should not hide other stuff.
+4. deletion task popup when click on delete.
+5. task created msg at top when in create.cshtml click on create and also do you modified popup when edit task in edit.cshtml click save.
+choose a nice background and color for user friendly UI.
+do it one by one so that i can debug the code if any error.
+
+
+changes after these features:- 
+* make task list and button container stay there and rest move below them ##done 7 sept
+
+
+10-sept
+New implementations, one by one to be handled for time to debug or for any error:- 
+1.task to be sorted on index page. implement search, sort and filter functionality for the tasks
+2.creater of task can tag individual or multiple persons involved in that task.(like @)
+3.A comment section feature for only those users who are taged by the creater of any task. Non-taged user cannot view this comment section(restricted).
+2 and 3 point will be covered under Authentication and Authorization, which includes user-role based auth, in which created by, only creater access to to edit/delete task etc will be covered.

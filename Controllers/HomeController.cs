@@ -1,5 +1,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.Data.SqlClient;
 using System.Diagnostics;
 using TaskManagementSystem.Models;
 
@@ -16,12 +17,42 @@ namespace TaskManagementSystem.Controllers
             _context = context; 
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string sortOrder)
         {
-            var tasks = _context.Tasks
-                                .OrderBy(t => t.Priority) 
-                                .ToList();
-            return View(tasks);
+            //code before sort, filter
+
+            //var tasks = _context.Tasks
+            //                    .OrderBy(t => t.Priority) 
+            //                    .ToList();
+
+            //viewbag for sorting
+            ViewBag.CurrentSort = sortOrder;
+            ViewBag.PrioritySort = sortOrder == "priority_asc" ? "priority_desc" : "priority_asc";
+            ViewBag.DueDateSort = sortOrder == "duedate_asc" ? "duedate_desc" : "duedate_asc";
+
+            var tasks = from t in _context.Tasks
+                        select t;
+
+            switch (sortOrder)
+            {
+                case "priority_asc":
+                    tasks = tasks.OrderBy(t => t.Priority);
+                    break;
+                case "priority_desc":
+                    tasks = tasks.OrderByDescending(t => t.Priority);
+                    break;
+                case "duedate_asc":
+                    tasks = tasks.OrderBy(t => t.DueDate);
+                    break;
+                case "duedate_desc":
+                    tasks = tasks.OrderByDescending(t => t.DueDate);
+                    break;
+                default:
+                    tasks = tasks.OrderBy(t => t.Priority); // Default sorting
+                    break;
+            }
+
+            return View(tasks.ToList());
         }
 
         public IActionResult Create()
