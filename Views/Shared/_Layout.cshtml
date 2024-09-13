@@ -47,6 +47,11 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
                         </li>
+                        <li class="col text-end">
+                            <form asp-action="Index" method="get" class="d-inline-block">
+                                <input type="text" name="searchterm" class="form-control" placeholder="Search" value="@ViewData["CurrentFilter"]" />
+                            </form>
+                        </li>
                     </ul>
                 </div>
             </div>
