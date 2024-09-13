@@ -1,35 +1,10 @@
 ﻿@model IEnumerable<TaskManagementSystem.Models.Task>
 
-@if (TempData["SuccessMessage"] != null)
-{
-    <div id="success-alert" class="alert alert-success" role="alert">
-        @TempData["SuccessMessage"]
-    </div>
-
-    <script>
-        setTimeout(function () {
-            document.getElementById('success-alert').style.display = 'none';
-        }, 15000);  @* 10sec = 10000 milliseconds *@ 
-    </script>
-}
-
-@if (TempData["DeleteMessage"] != null)
-{
-    <div id="delete-alert" class="alert alert-success" role="alert">
-        @TempData["DeleteMessage"]
-    </div>
-
-    <script>
-        setTimeout(function () {
-            document.getElementById('delete-alert').style.display = 'none';
-        }, 15000); @* 10sec = 10000 milliseconds *@
-    </script>
-}
 
 <div class="container mb-4">
     <div class="row align-items-center">
         <div class="col">
-            <h2>Task List</h2>
+            <h2>&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&emsp;&nbsp;Task List</h2>
         </div>
         @* <div class="col text-end">
             <a href="@Url.Action("Create")" class="btn btn-primary">Create New Task</a>
@@ -60,32 +35,104 @@
     </div>
 </div>
 
-<div class="container">
+
+<div class="container mb-2">
     <div class="row">
-        @foreach (var task in Model)
-        {
-            <div class="col-12 mb-4">
-                <div class="card shadow-sm" style="min-height: 250px;">
-                    <div class="card-body d-flex flex-column">
-                        <h5 class="card-title">@task.Title</h5>
-                        <p class="card-text">@task.Description</p>
-                        <p class="card-text mt-auto"><small class="text-muted">Priority: @task.Priority</small></p>
-                        <p class="card-text"><small class="text-muted">Due Date: @task.DueDate.ToShortDateString()</small></p>
-                        <p class="card-text">
-                            <input type="checkbox" disabled @(task.IsCompleted ? "checked" : "") /> Completed
-                        </p>
-                        <div class="mt-auto">
-                            <a asp-action="Edit" asp-route-id="@task.TaskId" class="btn btn-outline-primary btn-sm">Edit</a>
-                            <a href="javascript:void(0)" class="btn btn-outline-danger btn-sm"
-                               onclick="confirmDelete('@Url.Action("Delete", new { id = task.TaskId })')">Delete</a>
+        <!-- Filter Dropdown Section -->
+        <div class="col-md-2">
+            <div class="card-flex shadow-sm mb-4">
+                <div class="card-header">
+                    <h5 class="card-title">Filter Tasks</h5>
+                    <form asp-action="Index" method="get">
+                        <!-- Filter by Priority -->
+                        <h6>Priority</h6>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="Pfilter" value="High" id="priorityHigh" />
+                            <label class="form-check-label" for="priorityHigh">High</label>
+                        </div>                                                    
+                        <div class="form-check">                                  
+                            <input class="form-check-input" type="checkbox" name="Pfilter" value="Medium" id="priorityMedium" />
+                            <label class="form-check-label" for="priorityMedium">Medium</label>
+                        </div>                                                    
+                        <div class="form-check">                                  
+                            <input class="form-check-input" type="checkbox" name="Pfilter" value="Low" id="priorityLow" />
+                            <label class="form-check-label" for="priorityLow">Low</label>
                         </div>
-                    </div>
+
+                        <!-- Filter by Status -->
+                        <h6 class="mt-3">Status</h6>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="Sfilter" value="Completed" id="statusCompleted" />
+                            <label class="form-check-label" for="statusCompleted">Completed</label>
+                        </div>
+                        <div class="form-check">
+                            <input class="form-check-input" type="checkbox" name="Sfilter" value="Incomplete" id="statusIncomplete" />
+                            <label class="form-check-label" for="statusIncomplete">Incomplete</label>
+                        </div>
+
+                        <button type="submit" class="btn btn-primary mt-3">Apply Filters</button>
+                    </form>
                 </div>
             </div>
-        }
+        </div>
+
+        <div class="col-md-10">
+            <div class="row">
+                @foreach (var task in Model)
+                {
+                    <div class="col-12 mb-4">
+                        <div class="card shadow-sm" style="min-height: 250px;">
+                            <div class="card-body d-flex flex-column">
+                                <h5 class="card-title">@task.Title</h5>
+                                <p class="card-text">@task.Description</p>
+                                <p class="card-text mt-auto"><small class="text-muted">Priority: @task.Priority</small></p>
+                                <p class="card-text"><small class="text-muted">Due Date: @task.DueDate.ToShortDateString()</small></p>
+                                <p class="card-text">
+                                    <input type="checkbox" disabled @(task.IsCompleted ? "checked" : "") /> Completed
+                                </p>
+                                <div class="mt-auto">
+                                    <a asp-action="Edit" asp-route-id="@task.TaskId" class="btn btn-outline-primary btn-sm">Edit</a>
+                                    <a href="javascript:void(0)" class="btn btn-outline-danger btn-sm"
+                                       onclick="confirmDelete('@Url.Action("Delete", new { id = task.TaskId })')">Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
     </div>
 </div>
 
+<!-- Top alert for when creating and deleting task -->
+
+@if (TempData["SuccessMessage"] != null)
+{
+    <div id="success-alert" class="alert alert-success" role="alert">
+        @TempData["SuccessMessage"]
+    </div>
+
+    <script>
+        setTimeout(function () {
+            document.getElementById('success-alert').style.display = 'none';
+        }, 15000); @* 10sec = 10000 milliseconds *@
+    </script>
+}
+
+@if (TempData["DeleteMessage"] != null)
+{
+    <div id="delete-alert" class="alert alert-success" role="alert">
+        @TempData["DeleteMessage"]
+    </div>
+
+    <script>
+        setTimeout(function () {
+            document.getElementById('delete-alert').style.display = 'none';
+        }, 15000); @* 10sec = 10000 milliseconds *@
+    </script>
+}
+
+<!-- JS for deletion popup using sweetalert2 lib -->
 <script>
     function confirmDelete(deleteUrl) {
         Swal.fire({

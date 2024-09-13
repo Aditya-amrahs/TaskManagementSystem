@@ -17,7 +17,7 @@ namespace TaskManagementSystem.Controllers
             _context = context; 
         }
 
-        public IActionResult Index(string sortOrder, string searchterm, string filter)
+        public IActionResult Index(string sortOrder, string searchterm, string[] Pfilter, string[] Sfilter)
         {
             //code before sort, filter
 
@@ -57,7 +57,20 @@ namespace TaskManagementSystem.Controllers
             {
                 tasks = tasks.Where(t => t.Title.Contains(searchterm));
             }
-            ViewData["CurrentFilter"] = searchterm;
+            //ViewData["CurrentFilter"] = searchterm;
+
+            //filter logic by Priority
+            if(Pfilter != null && Pfilter.Any())
+            {
+                tasks = tasks.Where(t => Pfilter.Contains(t.Priority));
+            }
+
+            // by status
+            if(Sfilter != null && Sfilter.Any())
+            {
+                bool iscompleted = Sfilter.Contains("Completed");
+                tasks = tasks.Where(t => t.IsCompleted == iscompleted);
+            }
 
             return View(tasks.ToList());
         }
